@@ -1,7 +1,12 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
+import DateUtil from '../../common/utils/DateUtil'
+import DatePickDialog from './DatePickDialog'
 
 @Component
 export  default  struct SearchHeader {
+
+
+
   build() {
     Row() {
       //对于搜索栏我们这边不是用inputText组件，而是Search组件
