@@ -1,6 +1,8 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import DateUtil from '../../common/utils/DateUtil'
+import CaloriesStats from './CalorieStats'
 import DatePickDialog from './DatePickDialog'
+import NutrientStats from './NutrientStats'
 
 @Component
 export  default struct StatsCard{
@@ -31,20 +33,15 @@ export  default struct StatsCard{
       })
       //2.统计信息
       Swiper() {
-          Text('hello')
-            .width('90%')
-            .height(160)
-            .backgroundColor(0xAFEEEE)
-            .textAlign(TextAlign.Center)
-            .fontSize(30)
-        Text('world')
-          .width('90%')
-          .height(160)
-          .backgroundColor(0xAFEEEE)
-          .textAlign(TextAlign.Center)
-          .fontSize(30)
+        //2.1.热量统计
+        CaloriesStats()
+        //2.2营养素统计
+        NutrientStats()
       }
-
+      .width('100%')
+      .backgroundColor(Color.White)
+      .borderRadius(CommonConstants.DEFAULT_18)
+      .indicatorStyle({selectedColor:$r('app.color.primary_color')})//穿梭框样式调整  selectedColor:穿梭框颜色调整
     }
     .width(CommonConstants.THOUSANDTH_940)
     .backgroundColor($r('app.color.stats_title_bgc'))//背景颜色
