@@ -4,12 +4,19 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import Want from '@ohos.app.ability.Want';
 import window from '@ohos.window';
 import PreferenceUtil from '../common/utils/PreferenceUtil';
+import RecordModel from '../model/RecordModel';
+import DbUtil from '../common/utils/DbUtil';
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  async onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): Promise<void> {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
     //加载首选项
     PreferenceUtil.loadPreference(this.context)
+    // 3.初始化RDB工具
+    await DbUtil.initDB(this.context)
+    // 4.创建record表
+    DbUtil.createTable(RecordModel.getCreateTableSql())
+
   }
 
   onDestroy(): void {
