@@ -2,7 +2,7 @@ export default class RecordPO{
   /**
    * 记录id
    */
-  id: number
+  id ?: number
   /**
    * 饮食记录类型
    */

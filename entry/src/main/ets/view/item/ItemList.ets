@@ -1,6 +1,7 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import ItemModel from '../../model/ItemModel'
 import GroupInfo from '../../viewmodel/Grouplnfo'
+import ItemCategory from '../../viewmodel/ItemCategory'
 import RecordItem from '../../viewmodel/RecordItem'
 
 @Component
@@ -15,7 +16,7 @@ export  default struct ItemList {
         this.TabContentBuilder(ItemModel.list(this.isFood))
       }
       .tabBar('全部')
-      ForEach(ItemModel.listItemGroupByCategory(this.isFood),(group:GroupInfo)=>{
+      ForEach(ItemModel.listItemGroupByCategory(this.isFood),(group:GroupInfo<ItemCategory,RecordItem>)=>{
         TabContent(){
           this.TabContentBuilder(group.items)
         }

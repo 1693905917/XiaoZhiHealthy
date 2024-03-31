@@ -52,9 +52,9 @@ const workouts: RecordItem[] = [
 
 class ItemModel{
 
-  // getById(id: number, isFood: boolean = true){
-  //   return isFood ? foods[id] : workouts[id - 10000]
-  // }
+  getById(id: number, isFood: boolean = true){
+    return isFood ? foods[id] : workouts[id - 10000]
+  }
 
   //查询“全部”数据
   list(isFood: boolean = true): RecordItem[]{ //isFood来判断是“食物”还是“运动"
