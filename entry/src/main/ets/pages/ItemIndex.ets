@@ -4,6 +4,7 @@ import ItemCard from '../view/item/ItemCard'
 import ItemList from '../view/item/ItemList'
 import ItemPanelHeader from '../view/item/ItemPanelHeader'
 import NumberKeyboard from '../view/item/NumberKeyboard'
+import RecordItem from '../viewmodel/RecordItem'
 
 @Entry
 @Component
@@ -13,11 +14,13 @@ struct ItemIndex {
   //用于存储拼接用户输入的数值
   @State value: string = ''
   @State showPanel: boolean = false
+  @State item:RecordItem =null
 
-  onPanelShow() {
+  onPanelShow(item:RecordItem) {
     //初始化
     this.amount = 1
     this.value = ''
+    this.item=item
     this.showPanel = true //Panel组件传入的参数：ture：开启面板  false:关闭面板
   }
 
@@ -35,7 +38,9 @@ struct ItemIndex {
         //3.1.顶部日期
         ItemPanelHeader()
         //3.2.记录项卡片
-        ItemCard({ amount: this.amount })
+        if(this.item){
+          ItemCard({ amount: this.amount,item:$item})
+        }
         //3.3.数字键盘
         NumberKeyboard({ amount: $amount, value: $value })
         //3.5.按钮

@@ -1,3 +1,5 @@
+import BreakpointType from '../../common/bean/BreanpointType'
+import BreakpointConstants from '../../common/constants/BreakpointConstants'
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import DateUtil from '../../common/utils/DateUtil'
 import CaloriesStats from './CalorieStats'
@@ -13,6 +15,9 @@ export  default struct StatsCard{
   //所以要保持一致，也都用上当前日期的0时0分0秒
   //利用我们工具包中的DateUtil的beginTimeOfDay可以解决这个问题
   @StorageProp('selectedDate') selectedDate:number=DateUtil.beginTimeOfDay(new Date())
+
+  //获取监听器的信息
+  @StorageProp("currentBreakpoint") currentBreakpoint:string =BreakpointConstants.BREAKPOINT_SM
   controller:CustomDialogController=new CustomDialogController({
     builder:DatePickDialog({selectedDate:new Date(this.selectedDate)})
   })
@@ -42,6 +47,16 @@ export  default struct StatsCard{
       .backgroundColor(Color.White)
       .borderRadius(CommonConstants.DEFAULT_18)
       .indicatorStyle({selectedColor:$r('app.color.primary_color')})//穿梭框样式调整  selectedColor:穿梭框颜色调整
+      .displayCount(new BreakpointType({
+        sm:1,
+        md:1,
+        lg:2
+      }).getValue(this.currentBreakpoint))
+      .indicator(new BreakpointType({
+        sm:true,
+        md:true,
+        lg:false
+      }).getValue(this.currentBreakpoint))
     }
     .width(CommonConstants.THOUSANDTH_940)
     .backgroundColor($r('app.color.stats_title_bgc'))//背景颜色
