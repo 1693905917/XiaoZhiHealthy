@@ -2,6 +2,8 @@ import { CommonConstants } from '../../common/constants/CommonConstants'
 
 @Component
 export  default struct ItemList {
+  //便于父类ItemIndex对于Panel控制面板的操作与数据传递
+  showPanel:() => void
   build() {
     Tabs(){
       TabContent(){
@@ -39,6 +41,7 @@ export  default struct ItemList {
           .width('100%')
           .padding(CommonConstants.SPACE_6)
         }
+        .onClick(()=>{this.showPanel()})
       })
     }.width('100%')
     .height('100%')

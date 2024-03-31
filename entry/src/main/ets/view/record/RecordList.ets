@@ -14,6 +14,7 @@ export  default struct RecordList {
         ListItem(){
           Column(){
             //1.分组的标题
+            //TODO 图标样式颜色改变
             Row({space:CommonConstants.SPACE_4}){
               Image($r('app.media.ic_breakfast')).width(24)
               Text('早餐').fontSize(18).fontWeight(CommonConstants.FONT_WEIGHT_700)
