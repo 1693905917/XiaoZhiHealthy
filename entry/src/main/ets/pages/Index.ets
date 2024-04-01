@@ -1,24 +1,36 @@
-import BreakpointType from '../common/bean/BreanpointType';
-import BreakpointConstants from '../common/constants/BreakpointConstants';
-import { CommonConstants } from '../common/constants/CommonConstants';
-import BreakpointSystem from '../common/utils/BreakpointSystem';
-import RecordIndex from '../view/record/RecordIndex';
-
+import BreakpointType from '../common/bean/BreanpointType'
+import BreakpointConstants from '../common/constants/BreakpointConstants'
+import { CommonConstants } from '../common/constants/CommonConstants'
+import BreakpointSystem from '../common/utils/BreakpointSystem'
+import RecordIndex from '../view/record/RecordIndex'
 
 @Entry
 @Component
 struct Index {
   @State currentIndex: number = 0
-  private breakpointSystem:BreakpointSystem=new BreakpointSystem()
-  //获取监听器的信息
-  @StorageProp("currentBreakpoint") currentBreakpoint:string =BreakpointConstants.BREAKPOINT_SM
+  private breakpointSystem: BreakpointSystem = new BreakpointSystem()
+  @StorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointConstants.BREAKPOINT_SM
 
-  @Builder TabBarBuilder(title:ResourceStr,image:ResourceStr,index:number){
-    Column({space:CommonConstants.SPACE_8}){
-      Image(image).width(22).fillColor(this.selectColor(index))
-      Text(title).fontSize(14).fontColor(this.selectColor(index))
+  @State isPageShow: boolean = false
+
+  onPageShow(){
+    this.isPageShow = true
+  }
+  onPageHide(){
+    this.isPageShow = false
+  }
+
+  @Builder TabBarBuilder(title: ResourceStr, image: ResourceStr, index: number) {
+    Column({ space: CommonConstants.SPACE_8 }) {
+      Image(image)
+        .width(22)
+        .fillColor(this.selectColor(index))
+      Text(title)
+        .fontSize(14)
+        .fontColor(this.selectColor(index))
     }
   }
+
   aboutToAppear(){
     this.breakpointSystem.register()
   }
@@ -31,50 +43,31 @@ struct Index {
     return this.currentIndex === index ? $r('app.color.primary_color') : $r('app.color.gray')
   }
 
-  //动态设定Bar组件位置
-  // chooseBarPosition(){
-  //   //第一种方法
-  //   // if(this.currentBreakpoint==='sm'){
-  //   //   return BarPosition.End
-  //   // }else if(this.currentBreakpoint==='md'){
-  //   //   return BarPosition.Start
-  //   // }if(this.currentBreakpoint==='lg'){
-  //   //   return BarPosition.Start
-  //   // }
-  //
-  //   //第二种方法
-  //   let p={
-  //     sm:BarPosition.End,
-  //     md:BarPosition.Start,
-  //     lg:BarPosition.Start,
-  //   }
-  //   return p[this.currentBreakpoint]
-  // }
-
   build() {
-   Tabs({barPosition:BreakpointConstants.BAR_POSITION.getValue(this.currentBreakpoint)}){
-     TabContent(){
-       //饮食记录模块
-       RecordIndex()
-     }
-     .tabBar(this.TabBarBuilder($r('app.string.tab_record'), $r('app.media.ic_calendar'), 0))
-     TabContent() {
-       Text('发现页面')
-     }
-     .tabBar(this.TabBarBuilder($r('app.string.tab_discover'), $r('app.media.discover'), 1))
+    Tabs({ barPosition: BreakpointConstants.BAR_POSITION.getValue(this.currentBreakpoint) }) {
+      TabContent() {
+        RecordIndex({isPageShow: this.isPageShow})
+      }
+      .tabBar(this.TabBarBuilder($r('app.string.tab_record'), $r('app.media.ic_calendar'), 0))
 
-     TabContent() {
-       Text('我的主页')
-     }
-     .tabBar(this.TabBarBuilder($r('app.string.tab_user'), $r('app.media.ic_user_portrait'), 2))
-   }
+      TabContent() {
+        Text('发现页面')
+      }
+      .tabBar(this.TabBarBuilder($r('app.string.tab_discover'), $r('app.media.discover'), 1))
+
+      TabContent() {
+        Text('我的主页')
+      }
+      .tabBar(this.TabBarBuilder($r('app.string.tab_user'), $r('app.media.ic_user_portrait'), 2))
+
+    }
     .width('100%')
     .height('100%')
-   .onChange(index => this.currentIndex = index)
+    .onChange(index => this.currentIndex = index)
     .vertical(new BreakpointType({
-      sm:false,
-      md:true,
-      lg:true,
+      sm: false,
+      md: true,
+      lg: true
     }).getValue(this.currentBreakpoint))
   }
 }

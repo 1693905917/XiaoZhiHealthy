@@ -1,7 +1,7 @@
 import RecordItem from '../viewmodel/RecordItem'
 import ItemCategory from '../viewmodel/ItemCategory'
 import { FoodCategories, FoodCategoryEnum, WorkoutCategories, WorkoutCategoryEnum } from './ItemCategoryModel'
-import GroupInfo from '../viewmodel/Grouplnfo'
+import GroupInfo from '../viewmodel/GroupInfo'
 
 const foods: RecordItem[] = [
   new RecordItem(0, '米饭',$r('app.media.rice'),FoodCategoryEnum.STAPLE, '碗',  209, 46.6, 4.7, 0.5),
